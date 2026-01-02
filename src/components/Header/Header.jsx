@@ -3,8 +3,8 @@ import { useState } from "react";
 import "../Header/Header.css";
 
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
-import logoPath from "../assets/HeaderItems/Logo.png";
-import avatarDefault from "../assets/HeaderItems/avatarheader.svg";
+import logoPath from "../../images/Logo.png";
+import avatarDefault from "../../images/avatarheader.svg";
 
 const Header = ({ weatherData, handleAddClick }) => {
   if (!weatherData) return null;

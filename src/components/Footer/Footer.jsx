@@ -1,8 +1,12 @@
-import { useState } from "react";
 import "./Footer.css";
 
-function Footer() {
-  return <></>;
-}
+const Footer = () => {
+  return (
+    <footer className="footer">
+      <span>© Developed by Daniel</span>
+      <span>{new Date().getFullYear()}</span>
+    </footer>
+  );
+};
 
 export default Footer;

@@ -10,13 +10,13 @@ import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 
-import { defaultClothingItems } from "../utils/clothingItems";
+import { defaultClothingItems } from "../../utils/ClothingItems";
 
-import { apiKey, location } from "../utils/constant";
+import { apiKey, location } from "../../utils/constant";
 import {
   filterDataFromWeatherAPI,
   getForecastWeather,
-} from "../utils/weatherApi";
+} from "../../utils/weatherApi";
 
 const App = () => {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");

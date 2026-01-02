@@ -1,4 +1,4 @@
-import "../ModalWithForm/ModalWithForm.css";
+import "../ItemModal/ItemModal.css";
 const ItemModal = ({ card, onClose, activeModal }) => (
   <div
     className={`modal modal_type_image ${
