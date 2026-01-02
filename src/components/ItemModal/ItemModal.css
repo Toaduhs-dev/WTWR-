@@ -1,0 +1,47 @@
+.modal {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  padding: 0 10px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, linear 0.5s, opacity 0.5s, liner;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_is-opened {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.modal__container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.modal__image {
+  display: block;
+}
+
+.modal__close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.modal__footer {
+  background-color: white;
+}
+
+.modal__text {
+  margin: 0;
+}

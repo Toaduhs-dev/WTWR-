@@ -1,0 +1,37 @@
+.main {
+  flex-grow: 1;
+}
+.main__clothes {
+  display: flex;
+  flex-direction: column;
+}
+.main__items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 15px;
+  /* (100vw - 15px grid gap - 16px left padding - 16px right padding) / 2 */
+  grid-auto-rows: calc((100vw - 47px) / 2);
+}
+@media screen and (min-width: 768px) {
+  .main__items {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 328px;
+    grid-gap: 17px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .main__items {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.main__description {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-left: 40px;
+}
+@media screen and (min-width: 768px) {
+  .main__description {
+    margin-bottom: 34px;
+  }
+}

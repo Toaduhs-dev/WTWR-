@@ -1,0 +1,119 @@
+.toggle-switch {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 56px;
+}
+
+.toggle-switch__label {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  height: 28px;
+  width: 56px;
+  background: white;
+  border: 2px solid #7e7e7e;
+  border-radius: 20px;
+}
+
+.toggle-switch__input {
+  position: absolute; /* Bring it out of the document flow */
+  /* Hide the native checkbox while leaving it still clickable via its label */
+  width: 0;
+  height: 0;
+  overflow: hidden; /* Make extra sure its visuals don't appear */
+  clip: rect(
+    0,
+    0,
+    0,
+    0
+  ); /* Necessary for Firefox to hide it, since Firefox uses outlines which aren't hidden by overflow */
+}
+
+.toggle-switch__circle {
+  position: absolute;
+  /* We must subtract 2px from all of these because the circle overlaps the border */
+  top: -2px;
+  left: -2px;
+  height: 28px;
+  width: 28px;
+
+  border-radius: 28px; /* Slightly better than 50% because we change the width when hovering. 50% also acceptable here. */
+  background-color: black;
+
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  transition-property: all; /* This is the default value included for clarity */
+}
+
+.toggle-switch__value {
+  /* Don't let them accidentally select the F/C letters if they double click */
+  user-select: none;
+
+  /* F/C labels invert the color of their background */
+  color: #7e7e7e; /* Default non-hover gray, which we set to white if active or hovered */
+  mix-blend-mode: difference;
+
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+
+  /* Font */
+  font-family: "CabinetGrotesk-Bold";
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.24;
+
+  /* Center the text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* "F" value label */
+.toggle-switch__value_left {
+  left: 0;
+}
+/* "C" value label */
+.toggle-switch__value_right {
+  right: 0;
+}
+
+/* When hovering, border becomes black */
+.toggle-switch:hover {
+  border-color: black;
+}
+.toggle-switch__label:hover {
+  border-color: black;
+}
+/* When hovering, the inactive text changes from gray to black (which when using with mix-blend-mode, means we set it to white) */
+.toggle-switch__label:hover .toggle-switch__value {
+  color: white;
+}
+/* The letter in the black circle is always white (fully inverting) */
+.toggle-switch__input:checked ~ .toggle-switch__value_right {
+  color: white;
+}
+.toggle-switch__input:not(:checked) ~ .toggle-switch__value_left {
+  color: white;
+}
+
+/* Make the circle wider when hovering the checkbox */
+.toggle-switch__label:hover
+  .toggle-switch__input:not(:checked)
+  ~ .toggle-switch__circle {
+  width: 30px;
+}
+.toggle-switch__label:hover
+  .toggle-switch__input:checked
+  ~ .toggle-switch__circle {
+  width: 30px;
+  transform: translate(-2px);
+}
+
+.toggle-switch__input:checked ~ .toggle-switch__circle {
+  left: calc(56px - 28px - 2px);
+}
