@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import "../Header/Header.css";
 
@@ -9,10 +10,8 @@ import avatarDefault from "../../images/avatarheader.svg";
 const Header = ({ weatherData, handleAddClick }) => {
   if (!weatherData) return null;
 
-  // Mobile implementation is optional
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
-  // The Header component calculates the current date.
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -41,26 +40,28 @@ const Header = ({ weatherData, handleAddClick }) => {
         <button onClick={handleAddClick} className="header__add-button">
           + Add clothes
         </button>
-        <div className="header__profile">
-          <div className="header__user-name">{username}</div>
-          {avatar ? (
-            <img
-              className="header__avatar"
-              src={avatar || avatarDefault}
-              alt="user avatar"
+        <Link className="header__link" to="/profile">
+          <div className="header__profile">
+            <div className="header__user-name">{username}</div>
+            {avatar ? (
+              <img
+                className="header__avatar"
+                src={avatar || avatarDefault}
+                alt="user avatar"
+              />
+            ) : (
+              <span className="header__avatar header__avatar_none">
+                {username?.toUpperCase().charAt(0) || ""}
+              </span>
+            )}
+          </div>
+          {isMobileMenuOpened && (
+            <button
+              className="header__mobile-close"
+              onClick={handleMobileMenuClick}
             />
-          ) : (
-            <span className="header__avatar header__avatar_none">
-              {username?.toUpperCase().charAt(0) || ""}
-            </span>
           )}
-        </div>
-        {isMobileMenuOpened && (
-          <button
-            className="header__mobile-close"
-            onClick={handleMobileMenuClick}
-          />
-        )}
+        </Link>
       </div>
       {!isMobileMenuOpened && (
         <button

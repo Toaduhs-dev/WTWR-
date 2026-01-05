@@ -9,7 +9,6 @@ const Main = ({ weatherData, cards, onCardClick }) => {
 
   if (!weatherData) return null;
 
-  // Safely extract the current temperature based on selected unit
   const currentTemp =
     weatherData.temperature && typeof weatherData.temperature === "object"
       ? weatherData.temperature[currentTemperatureUnit] ?? 0

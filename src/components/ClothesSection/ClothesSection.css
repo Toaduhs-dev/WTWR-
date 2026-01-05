@@ -1,0 +1,14 @@
+.clothes-section__row {
+  display: flex;
+  gap: 20px;
+}
+
+.clothes-section__card-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-end;
+}

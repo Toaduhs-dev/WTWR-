@@ -190,3 +190,9 @@
   line-height: 20px;
   width: 40px;
 }
+
+.header__link {
+  display: flex;
+  text-decoration: none;
+  color: #000;
+}

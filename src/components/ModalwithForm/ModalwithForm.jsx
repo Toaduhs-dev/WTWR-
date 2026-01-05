@@ -1,4 +1,5 @@
-import "./ModalWithForm.css";
+import { useState, useContext, useEffect } from "react";
+import "../ModalwithForm/ModalwithForm.css";
 const ModalWithForm = ({
   title,
   name,

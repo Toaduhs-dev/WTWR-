@@ -1,14 +1,14 @@
-//Fix//
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import ModalWithForm from "../ModalwithForm/ModalwithForm";
 import ItemModal from "../ItemModal/ItemModal";
+import AddItemModal from "../AddItemModal/AddItemModal";
+import Profile from "../Profile/Profile";
 
 import { defaultClothingItems } from "../../utils/ClothingItems";
 
@@ -17,6 +17,7 @@ import {
   filterDataFromWeatherAPI,
   getForecastWeather,
 } from "../../utils/weatherApi";
+import { Route } from "react-router-dom";
 
 const App = () => {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -95,11 +96,20 @@ const App = () => {
             weatherData={weatherData}
             handleAddClick={() => setActiveModal("create")}
           />
-          <Main
-            weatherData={weatherData}
-            cards={clothingItems}
-            onCardClick={handleCardClick}
-          />
+          <Routes>
+            <Route
+              path="/profile"
+              element={
+                <Main
+                  weatherData={weatherData}
+                  cards={clothingItems}
+                  onCardClick={handleCardClick}
+                />
+              }
+            ></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+          </Routes>
+
           <Footer />
         </div>
         <ModalWithForm
