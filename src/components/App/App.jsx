@@ -5,7 +5,6 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import ModalWithForm from "../ModalwithForm/ModalwithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
@@ -17,7 +16,8 @@ import {
   filterDataFromWeatherAPI,
   getForecastWeather,
 } from "../../utils/weatherApi";
-import { Route } from "react-router-dom";
+
+import api from "../../utils/api";
 
 const App = () => {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -33,6 +33,35 @@ const App = () => {
   const handleCardClick = (card) => {
     setSelectedCard(card);
     setActiveModal("preview");
+  };
+
+  const handleAddItemSubmit = (item, resetForm) => {
+    api
+      .addItem(item)
+      .then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
+        closeAllModals();
+        resetForm();
+      })
+      .catch(console.error);
+  };
+
+  const openDeleteConfirmationModal = (card) => {
+    setActiveModal("delete-confirmation");
+    setCardToDelete(card);
+  };
+
+  const handleCardDelete = () => {
+    api
+      .removeItem(cardToDelete._id)
+      .then(() => {
+        setClothingItems((cards) =>
+          cards.filter((item) => item._id !== cardToDelete._id)
+        );
+        setCardToDelete(null);
+        closeAllModals();
+      })
+      .catch(console.error);
   };
 
   const closeAllModals = () => {
@@ -52,7 +81,7 @@ const App = () => {
       getForecastWeather(location, apiKey)
         .then((data) => {
           const filteredData = filterDataFromWeatherAPI(data);
-          console.log("Fetched weather data:", filteredData);
+          //console.log("Fetched weather data:", filteredData);
           setWeatherData(filteredData);
         })
         .catch((err) => {
@@ -65,6 +94,16 @@ const App = () => {
     const intervalId = setInterval(fetchWeather, 600000);
     return () => clearInterval(intervalId);
   }, [location, apiKey]);
+
+  useEffect(() => {
+    api
+      .getItemList()
+      .then((items) => {
+        console.log(items);
+        setClothingItems(items.reverse());
+      })
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
     if (!activeModal) return;
@@ -98,92 +137,39 @@ const App = () => {
           />
           <Routes>
             <Route
+              path="/"
+              element={
+                weatherData.temperature ? (
+                  <Main
+                    weatherData={weatherData}
+                    clothingItems={clothingItems}
+                    onCardClick={handleCardClick}
+                  />
+                ) : (
+                  <p>Loading...</p>
+                )
+              }
+            />
+            <Route
               path="/profile"
               element={
-                <Main
-                  weatherData={weatherData}
-                  cards={clothingItems}
-                  onCardClick={handleCardClick}
-                />
+                clothingItems.length !== 0 && (
+                  <Profile
+                    clothingItems={clothingItems}
+                    weatherData={weatherData}
+                    onCardClick={handleCardClick}
+                    onAddNewClick={() => setActiveModal("create")}
+                  />
+                )
               }
-            ></Route>
-            <Route path="/profile" element={<Profile />}></Route>
+            />
           </Routes>
-
           <Footer />
         </div>
-        <ModalWithForm
-          title="New garment"
-          name="new-card"
-          onClose={closeAllModals}
-          isOpen={activeModal === "create"}
-        >
-          <label className="modal__label">
-            Name
-            <input
-              type="text"
-              name="name"
-              id="clothing-name"
-              className="modal__input modal__input_type_card-name"
-              placeholder="Name"
-              required
-              minLength="1"
-              maxLength="30"
-            />
-            <span className="modal__error" id="place-name-error" />
-          </label>
-          <label className="modal__label">
-            Image
-            <input
-              type="url"
-              name="link"
-              id="clothing-link"
-              className="modal__input modal__input_type_url"
-              placeholder="Image URL"
-              required
-            />
-            <span className="modal__error" id="place-link-error" />
-          </label>
-          <fieldset className="modal__fieldset modal__fieldset_type_radio">
-            <legend className="modal__legend">Select the weather type:</legend>
-            <div>
-              <input
-                className="modal__radio-button"
-                type="radio"
-                id="choiceHot"
-                name="weatherType"
-                value="hot"
-              />
-              <label className="modal__label_type_radio" htmlFor="choiceHot">
-                Hot
-              </label>
-            </div>
-            <div>
-              <input
-                className="modal__radio-button"
-                type="radio"
-                id="choiceWarm"
-                name="weatherType"
-                value="warm"
-              />
-              <label className="modal__label_type_radio" htmlFor="choiceWarm">
-                Warm
-              </label>
-            </div>
-            <div>
-              <input
-                className="modal__radio-button"
-                type="radio"
-                id="choiceCold"
-                name="weatherType"
-                value="cold"
-              />
-              <label className="modal__label_type_radio" htmlFor="choiceCold">
-                Cold
-              </label>
-            </div>
-          </fieldset>
-        </ModalWithForm>
+        <AddItemModal
+          activeModal={activeModal}
+          closeAllModals={closeAllModals}
+        />
         <ItemModal
           card={selectedCard || {}}
           onClose={closeAllModals}

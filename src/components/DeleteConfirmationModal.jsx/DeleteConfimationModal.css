@@ -1,0 +1,29 @@
+.modalcontent_content_confirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.modalconfirmation-title {
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin: 0 0 40px;
+}
+
+.modalconfirmation-button {
+  background: transparent;
+  border: none;
+}
+
+.modalconfirmation-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.modal__confirmation-button_type_delete {
+  color: #ff4d00;
+  margin-bottom: 24px;
+}
