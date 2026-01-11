@@ -11,14 +11,15 @@
 }
 
 .clothes-sectiontitle {
+  /*^*/
   margin: 0;
   padding: 0 20px 0 0;
   font-size: 20px;
   line-height: 1.2;
 }
 
-.clothes-sectionbutton {
-  margin: 0;
+.clothes-section__btn {
+  margin-left: 15px;
   padding: 0;
   background: none;
   border: none;
@@ -26,11 +27,11 @@
   opacity: 0.6;
 }
 
-.clothes-sectionbutton:hover {
+.clothes-section__btn:hover {
   opacity: 1;
 }
 
-.clothes-sectionlist {
+.clothes-section__card-list {
   margin: 0;
   padding: 0 0 41px 0;
   display: grid;
@@ -44,7 +45,7 @@
 }
 
 @media screen and (max-width: 1365px) {
-  .clothes-sectionlist {
+  .clothes-section__card-list {
     grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
     grid-gap: 16px;
     grid-auto-rows: 228px;

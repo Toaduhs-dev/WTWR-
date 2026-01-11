@@ -25,11 +25,9 @@ const Main = ({ weatherData, clothingItems, onCardClick }) => {
         </p>
 
         <ul className="main__items">
-          {clothingItems
-            .filter((card) => card.weather === weatherData.type)
-            .map((card) => (
-              <ItemCard key={card._id} card={card} onCardClick={onCardClick} />
-            ))}
+          {clothingItems.map((card) => (
+            <ItemCard key={card.id} card={card} onCardClick={onCardClick} />
+          ))}
         </ul>
       </section>
     </main>

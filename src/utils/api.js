@@ -16,7 +16,7 @@ const getItemList = () => {
   });
 };
 
-const addItem = ({ name, weather, imageUrl }) => {
+const addItem = ({ name, weather, url, id }) => {
   return request(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
@@ -25,7 +25,8 @@ const addItem = ({ name, weather, imageUrl }) => {
     body: JSON.stringify({
       name,
       weather,
-      imageUrl,
+      url,
+      id,
     }),
   });
 };

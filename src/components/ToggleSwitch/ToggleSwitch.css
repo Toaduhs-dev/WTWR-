@@ -23,23 +23,18 @@
   width: 0;
   height: 0;
   overflow: hidden; /* Make extra sure its visuals don't appear */
-  clip: rect(
-    0,
-    0,
-    0,
-    0
-  ); /* Necessary for Firefox to hide it, since Firefox uses outlines which aren't hidden by overflow */
+  clip: rect(0, 0, 0, 0);
 }
 
 .toggle-switch__circle {
   position: absolute;
-  /* We must subtract 2px from all of these because the circle overlaps the border */
+
   top: -2px;
   left: -2px;
   height: 28px;
   width: 28px;
 
-  border-radius: 28px; /* Slightly better than 50% because we change the width when hovering. 50% also acceptable here. */
+  border-radius: 28px;
   background-color: black;
 
   transition-duration: 0.1s;

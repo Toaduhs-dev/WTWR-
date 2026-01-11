@@ -4,12 +4,12 @@ function SideBar() {
   return (
     <div className="sidebar">
       <div className="sidebar__row">
-        <p className="sidebar__username">Daniel King</p>
         <img
           className="sidebar__avatar"
           src={avatar}
           alt="Daniel Kings Avatar"
         />
+        <p className="sidebar__username">Daniel King</p>
       </div>
     </div>
   );

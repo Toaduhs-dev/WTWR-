@@ -1,10 +1,11 @@
-import "../ModalWithForm/ModalWithForm.css";
-import "./DeleteConfirmationModal.css";
+import "../DeleteConfirmationModal/DelConMod.css";
 
 export const DeleteConfirmationModal = ({ onCardDelete, onClose, isOpen }) => {
   return (
     <div
-      className={`modal modal_type_delete-confirmation${isOpen ? ' modal_is-opened' : ''}`}
+      className={`modal modal_type_delete-confirmation${
+        isOpen ? " modal_is-opened" : ""
+      }`}
     >
       <div className="modalcontent modalcontent_content_confirmation">
         <button type="button" className="modalclose" onClick={onClose} />

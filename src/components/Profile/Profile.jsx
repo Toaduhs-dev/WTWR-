@@ -1,15 +1,20 @@
 import "./Profile.css";
 import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
-function Profile({ clothingItems, onCardClick, weatherData }) {
+function Profile({ clothingItems, onCardClick, weatherData, handleAddClick }) {
   return (
     <main className="profile">
-      <SideBar />
-      <ClothesSection
-        clothingItems={clothingItems}
-        onCardClick={onCardClick}
-        weatherData={weatherData}
-      />
+      <section className="profile-sidebar">
+        <SideBar />
+      </section>
+      <section className="profile-clothes">
+        <ClothesSection
+          clothingItems={clothingItems}
+          onCardClick={onCardClick}
+          weatherData={weatherData}
+          handleAddClick={handleAddClick}
+        />
+      </section>
     </main>
   );
 }

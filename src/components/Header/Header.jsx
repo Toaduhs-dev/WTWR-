@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import {
+  isRouteErrorResponse,
+  Link,
+  redirect,
+  useNavigate,
+} from "react-router-dom";
 
 import "../Header/Header.css";
 
@@ -11,6 +16,7 @@ const Header = ({ weatherData, handleAddClick }) => {
   if (!weatherData) return null;
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  const navigate = useNavigate(); // Call the hook here at the top level
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -23,10 +29,19 @@ const Header = ({ weatherData, handleAddClick }) => {
     setIsMobileMenuOpened(!isMobileMenuOpened);
   };
 
+  const headerClick = () => {
+    navigate("/"); // Use the returned navigate function
+  };
+
   return (
     <header className="header">
       <div className="header__container">
-        <img src={logoPath} alt="WTWR logo" className="header__logo" />
+        <img
+          src={logoPath}
+          alt="WTWR logo"
+          className="header__logo"
+          onClick={headerClick}
+        />
         <p className="header__date">
           {currentDate}, {weatherData.city}
         </p>

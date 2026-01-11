@@ -8,8 +8,7 @@ import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
-
-import { defaultClothingItems } from "../../utils/ClothingItems";
+import { DeleteConfirmationModal } from "../DeleteConfirmationModal/DelConMod";
 
 import { apiKey, location } from "../../utils/constant";
 import {
@@ -29,6 +28,11 @@ const App = () => {
   const [clothingItems, setClothingItems] = useState([]);
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cardToDelete, setCardToDelete] = useState(null);
+
+  const generateRandomId = () => {
+    return Math.random().toString(36).substring(2, 6);
+  };
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -36,6 +40,8 @@ const App = () => {
   };
 
   const handleAddItemSubmit = (item, resetForm) => {
+    item._id = clothingItems.length + 1;
+    item.id = generateRandomId();
     api
       .addItem(item)
       .then((newItem) => {
@@ -99,7 +105,6 @@ const App = () => {
     api
       .getItemList()
       .then((items) => {
-        console.log(items);
         setClothingItems(items.reverse());
       })
       .catch(console.error);
@@ -120,10 +125,6 @@ const App = () => {
       document.removeEventListener("keydown", handleEscClose);
     };
   }, [activeModal]);
-
-  useEffect(() => {
-    setClothingItems(defaultClothingItems);
-  }, []);
 
   return (
     <div className="page">
@@ -158,7 +159,7 @@ const App = () => {
                     clothingItems={clothingItems}
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
-                    onAddNewClick={() => setActiveModal("create")}
+                    handleAddClick={() => setActiveModal("create")}
                   />
                 )
               }
@@ -169,12 +170,19 @@ const App = () => {
         <AddItemModal
           activeModal={activeModal}
           closeAllModals={closeAllModals}
+          handleItemSubmit={handleAddItemSubmit}
         />
         <ItemModal
           card={selectedCard || {}}
           onClose={closeAllModals}
           activeModal={activeModal}
           isOpen={activeModal === "preview"}
+          onCardDelete={openDeleteConfirmationModal}
+        />
+        <DeleteConfirmationModal
+          onClose={closeAllModals}
+          onCardDelete={handleCardDelete}
+          isOpen={activeModal === "delete-confirmation"}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>
