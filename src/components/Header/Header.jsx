@@ -16,7 +16,7 @@ const Header = ({ weatherData, handleAddClick }) => {
   if (!weatherData) return null;
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
-  const navigate = useNavigate(); // Call the hook here at the top level
+  const navigate = useNavigate();
 
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -30,7 +30,7 @@ const Header = ({ weatherData, handleAddClick }) => {
   };
 
   const headerClick = () => {
-    navigate("/"); // Use the returned navigate function
+    navigate("/");
   };
 
   return (
@@ -46,6 +46,12 @@ const Header = ({ weatherData, handleAddClick }) => {
           {currentDate}, {weatherData.city}
         </p>
       </div>
+      {/* Added navigation link as required */}
+      <nav className="header__navigation">
+        <Link to="/" className="header__nav-link">
+          Home
+        </Link>
+      </nav>
       <div
         className={`header__nav ${
           isMobileMenuOpened ? "header__nav_opened" : ""
