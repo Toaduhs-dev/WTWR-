@@ -17,6 +17,7 @@ import {
 } from "../../utils/weatherApi";
 
 import api from "../../utils/api";
+import { defaultClothingItems } from "../../utils/ClothingItems";
 
 const App = () => {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -40,12 +41,14 @@ const App = () => {
   };
 
   const handleAddItemSubmit = (item, resetForm) => {
-    item._id = clothingItems.length + 1;
-    item.id = generateRandomId();
+    const newItem = {
+      ...item,
+      id: Date.now(), // use id as the primary key for json-server
+    };
     api
-      .addItem(item)
-      .then((newItem) => {
-        setClothingItems([newItem, ...clothingItems]);
+      .addItem(newItem)
+      .then((createdItem) => {
+        setClothingItems([createdItem, ...clothingItems]);
         closeAllModals();
         resetForm();
       })
@@ -59,10 +62,10 @@ const App = () => {
 
   const handleCardDelete = () => {
     api
-      .removeItem(cardToDelete._id)
+      .removeItem(cardToDelete.id)
       .then(() => {
         setClothingItems((cards) =>
-          cards.filter((item) => item._id !== cardToDelete._id)
+          cards.filter((item) => item.id !== cardToDelete.id),
         );
         setCardToDelete(null);
         closeAllModals();
@@ -107,7 +110,14 @@ const App = () => {
       .then((items) => {
         setClothingItems(items.reverse());
       })
-      .catch(console.error);
+      .catch(() => {
+        // Fallback: map 'link' to 'url' for compatibility
+        const fallback = defaultClothingItems.map((item) => ({
+          ...item,
+          url: item.url || item.link,
+        }));
+        setClothingItems(fallback);
+      });
   }, []);
 
   useEffect(() => {

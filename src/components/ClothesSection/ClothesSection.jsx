@@ -17,11 +17,13 @@ function ClothesSection({
         </button>
       </div>
       <ul className="clothes-section__card-list">
-        {clothingItems
-          .filter((card) => card.weather === weatherData.type)
-          .map((card) => (
-            <ItemCard key={card._id} card={card} onCardClick={onCardClick} />
-          ))}
+        {clothingItems.map((card) => (
+          <ItemCard
+            key={card.id || card._id || card.name}
+            card={card}
+            onCardClick={onCardClick}
+          />
+        ))}
       </ul>
     </section>
   );
