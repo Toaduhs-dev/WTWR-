@@ -9,6 +9,7 @@ import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import Profile from "../Profile/Profile";
 import { DeleteConfirmationModal } from "../DeleteConfirmationModal/DelConMod";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 import { apiKey, location } from "../../utils/constant";
 import {
@@ -18,6 +19,7 @@ import {
 
 import api from "../../utils/api";
 import { defaultClothingItems } from "../../utils/ClothingItems";
+import LoginModal from "../LoginModal/LoginModal";
 
 const App = () => {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -30,6 +32,8 @@ const App = () => {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardToDelete, setCardToDelete] = useState(null);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const generateRandomId = () => {
     return Math.random().toString(36).substring(2, 6);
@@ -49,6 +53,30 @@ const App = () => {
       .addItem(newItem)
       .then((createdItem) => {
         setClothingItems([createdItem, ...clothingItems]);
+        closeAllModals();
+        resetForm();
+      })
+      .catch(console.error);
+  };
+
+  const handleLoginSubmit = (user, resetForm) => {
+    api
+      .addItem(user)
+      .then((sentUser) => {
+        localStorage.setItem("jwt", sentUser.token);
+        setIsLoggedIn(true);
+        closeAllModals();
+        resetForm();
+      })
+      .catch(console.error);
+  };
+
+  const handleRegisterSubmit = (user, resetForm) => {
+    api
+      .addItem(user)
+      .then((sentUser) => {
+        localStorage.setItem("jwt", sentUser.token);
+        setIsLoggedIn(true);
         closeAllModals();
         resetForm();
       })
@@ -182,6 +210,16 @@ const App = () => {
           activeModal={activeModal}
           closeAllModals={closeAllModals}
           handleItemSubmit={handleAddItemSubmit}
+        />
+        <LoginModal
+          activeModal={activeModal}
+          closeAllModals={closeAllModals}
+          handleLoginSubmit={handleLoginSubmit}
+        />
+        <RegisterModal
+          activeModal={activeModal}
+          closeAllModals={closeAllModals}
+          handleRegisterSubmit={handleRegisterSubmit}
         />
         <ItemModal
           card={selectedCard || {}}

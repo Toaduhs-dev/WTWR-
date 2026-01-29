@@ -12,7 +12,13 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import logoPath from "../../images/Logo.png";
 import avatarDefault from "../../images/avatarheader.svg";
 
-const Header = ({ weatherData, handleAddClick }) => {
+const Header = ({
+  weatherData,
+  handleAddClick,
+  handleLoginClick,
+  handeleRegisterClick,
+  isLoggedIn,
+}) => {
   if (!weatherData) return null;
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
