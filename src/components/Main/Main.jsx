@@ -11,7 +11,7 @@ const Main = ({ weatherData, clothingItems, onCardClick }) => {
 
   const currentTemp =
     weatherData.temperature && typeof weatherData.temperature === "object"
-      ? weatherData.temperature[currentTemperatureUnit] ?? 0
+      ? (weatherData.temperature[currentTemperatureUnit] ?? 0)
       : 0;
 
   return (
@@ -26,7 +26,7 @@ const Main = ({ weatherData, clothingItems, onCardClick }) => {
 
         <ul className="main__items">
           {clothingItems.map((card) => (
-            <ItemCard key={card.id} card={card} onCardClick={onCardClick} />
+            <ItemCard key={card._id} card={card} onCardClick={onCardClick} />
           ))}
         </ul>
       </section>

@@ -8,7 +8,7 @@ const ItemCard = ({ card, onCardClick }) => {
   return (
     <li className="card">
       <img
-        src={card.url}
+        src={card.imageUrl}
         alt={card.name}
         onClick={handleClick}
         className="card__image"

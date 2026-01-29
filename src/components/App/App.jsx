@@ -61,11 +61,12 @@ const App = () => {
   };
 
   const handleCardDelete = () => {
+    if (!selectedCard || !selectedCard._id) return;
     api
-      .removeItem(cardToDelete.id)
+      .removeItem(selectedCard._id)
       .then(() => {
         setClothingItems((cards) =>
-          cards.filter((item) => item.id !== cardToDelete.id),
+          cards.filter((item) => item._id !== selectedCard._id),
         );
         setCardToDelete(null);
         closeAllModals();

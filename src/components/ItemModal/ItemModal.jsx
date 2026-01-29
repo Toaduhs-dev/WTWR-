@@ -2,8 +2,9 @@ import "../ModalWithForm/ModalWithForm.css";
 import "./ItemModal.css";
 const ItemModal = ({ card, onClose, onCardDelete, isOpen }) => {
   const handleDeleteClick = () => {
-    onCardDelete(card);
+    onCardDelete(card._id);
   };
+  console.log(card._id);
   return (
     <div
       className={`modal modal_type_image ${isOpen ? "modal_is-opened" : ""}`}
@@ -16,7 +17,7 @@ const ItemModal = ({ card, onClose, onCardDelete, isOpen }) => {
         />
         <img
           alt={card?.name || ""}
-          src={card?.url || ""}
+          src={card?.imageUrl || ""}
           className="modal__image"
         />
         <div className="modal__footer">

@@ -7,20 +7,20 @@ export const DeleteConfirmationModal = ({ onCardDelete, onClose, isOpen }) => {
         isOpen ? " modal_is-opened" : ""
       }`}
     >
-      <div className="modalcontent modalcontent_content_confirmation">
-        <button type="button" className="modalclose" onClick={onClose} />
-        <h3 className="modalconfirmation-title">
+      <div className="modal-content modal-content_content_confirmation">
+        <button type="button" className="modal-close" onClick={onClose} />
+        <h3 className="modal-confirmation-title">
           Are you sure you want to delete this item? This action is
           irreversible.
         </h3>
         <button
-          className="modalconfirmation-button modalconfirmation-button_type_delete"
+          className="modal-confirmation-button modal-confirmation-button_type_delete"
           onClick={onCardDelete}
         >
           Yes, delete item
         </button>
         <button
-          className="modalconfirmation-button modalconfirmation-button_type_cancel"
+          className="modal-confirmation-button modal-confirmation-button_type_cancel"
           onClick={onClose}
         >
           Cancel

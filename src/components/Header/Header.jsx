@@ -36,22 +36,21 @@ const Header = ({ weatherData, handleAddClick }) => {
   return (
     <header className="header">
       <div className="header__container">
-        <img
-          src={logoPath}
-          alt="WTWR logo"
-          className="header__logo"
-          onClick={headerClick}
-        />
+        <Link to="/" className="header__nav-link">
+          <img
+            src={logoPath}
+            alt="WTWR logo"
+            className="header__logo"
+            onClick={headerClick}
+          />
+        </Link>
+
         <p className="header__date">
           {currentDate}, {weatherData.city}
         </p>
       </div>
       {/* Added navigation link as required */}
-      <nav className="header__navigation">
-        <Link to="/" className="header__nav-link">
-          Home
-        </Link>
-      </nav>
+      <nav className="header__navigation"></nav>
       <div
         className={`header__nav ${
           isMobileMenuOpened ? "header__nav_opened" : ""
