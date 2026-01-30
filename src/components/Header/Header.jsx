@@ -1,100 +1,95 @@
-import { useState } from "react";
-import {
-  isRouteErrorResponse,
-  Link,
-  redirect,
-  useNavigate,
-} from "react-router-dom";
-
-import "../Header/Header.css";
-
+import { Link } from "react-router-dom";
+import { useContext } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import "./Headerx.css";
+import "./Navigation.css";
 import logoPath from "../../images/Logo.png";
 import avatarDefault from "../../images/avatarheader.svg";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 const Header = ({
   weatherData,
   handleAddClick,
+  handleRegisterClick,
   handleLoginClick,
-  handeleRegisterClick,
   isLoggedIn,
+  handleLogout,
 }) => {
+  const currentUser = useContext(CurrentUserContext);
+  const name = currentUser?.name || "";
+  const avatar = currentUser?.avatar || "";
+
   if (!weatherData) return null;
-
-  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
-  const navigate = useNavigate();
-
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-  const username = "Daniel King";
-  const avatar = "";
-
-  const handleMobileMenuClick = () => {
-    setIsMobileMenuOpened(!isMobileMenuOpened);
-  };
-
-  const headerClick = () => {
-    navigate("/");
-  };
 
   return (
     <header className="header">
       <div className="header__container">
-        <Link to="/" className="header__nav-link">
-          <img
-            src={logoPath}
-            alt="WTWR logo"
-            className="header__logo"
-            onClick={headerClick}
-          />
+        <Link to="/">
+          <img src={logoPath} alt="WTWR Logo" className="header__logo" />
         </Link>
-
         <p className="header__date">
           {currentDate}, {weatherData.city}
         </p>
       </div>
-      {/* Added navigation link as required */}
-      <nav className="header__navigation"></nav>
-      <div
-        className={`header__nav ${
-          isMobileMenuOpened ? "header__nav_opened" : ""
-        }`}
-      >
-        <ToggleSwitch />
-        <button onClick={handleAddClick} className="header__add-button">
-          + Add clothes
-        </button>
-        <Link className="header__link" to="/profile">
-          <div className="header__profile">
-            <div className="header__user-name">{username}</div>
-            {avatar ? (
-              <img
-                className="header__avatar"
-                src={avatar || avatarDefault}
-                alt="user avatar"
-              />
-            ) : (
-              <span className="header__avatar header__avatar_none">
-                {username?.toUpperCase().charAt(0) || ""}
-              </span>
-            )}
-          </div>
-          {isMobileMenuOpened && (
-            <button
-              className="header__mobile-close"
-              onClick={handleMobileMenuClick}
-            />
-          )}
-        </Link>
-      </div>
-      {!isMobileMenuOpened && (
-        <button
-          className="header__mobile-menu"
-          onClick={handleMobileMenuClick}
-        />
-      )}
+      <nav className="navigation">
+        {isLoggedIn ? (
+          <ul className="navigation__container">
+            <ToggleSwitch />
+            <li>
+              <button onClick={handleAddClick} className="navigation__button">
+                + Add clothes
+              </button>
+            </li>
+            <li>
+              <Link to="/profile" className="navigation__link">
+                {name}
+                {avatar ? (
+                  <img
+                    className="navigation__user"
+                    src={avatar}
+                    alt="user avatar"
+                  />
+                ) : (
+                  <span className="navigation__user navigation__user_placeholder">
+                    {name ? name[0].toUpperCase() : "U"}
+                  </span>
+                )}
+              </Link>
+            </li>
+            <li>
+              <button onClick={handleLogout} className="navigation__button">
+                Log Out
+              </button>
+            </li>
+            <li>
+              <button className="navigation__button" onClick={handleLogout}>
+                Log Out
+              </button>
+            </li>
+          </ul>
+        ) : (
+          <ul className="navigation__container">
+            <ToggleSwitch />
+            <li>
+              <button
+                onClick={handleRegisterClick}
+                className="navigation__button"
+              >
+                Sign Up
+              </button>
+            </li>
+            <li>
+              <button className="navigation__button" onClick={handleLoginClick}>
+                Log In
+              </button>
+            </li>
+          </ul>
+        )}
+      </nav>
     </header>
   );
 };
