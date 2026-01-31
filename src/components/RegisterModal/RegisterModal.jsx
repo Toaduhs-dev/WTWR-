@@ -24,7 +24,7 @@ const RegisterModal = ({
         Name
         <input
           type="text"
-          name="Name"
+          name="name"
           id="name-signup"
           className="modal__input modal__input_type_card-name"
           placeholder="Name Signup"

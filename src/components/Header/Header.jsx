@@ -65,11 +65,6 @@ const Header = ({
                 Log Out
               </button>
             </li>
-            <li>
-              <button className="navigation__button" onClick={handleLogout}>
-                Log Out
-              </button>
-            </li>
           </ul>
         ) : (
           <ul className="navigation__container">
