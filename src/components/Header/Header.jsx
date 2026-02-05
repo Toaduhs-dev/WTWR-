@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import "./Header.css";
 import "./Headerx.css";
 import "./Navigation.css";
 import logoPath from "../../images/Logo.png";

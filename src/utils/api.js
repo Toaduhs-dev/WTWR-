@@ -8,53 +8,75 @@ export function request(url, options) {
   return fetch(url, options).then(handleServerResponse);
 }
 
-// Helper to get token
-const getToken = () => localStorage.getItem("jwt");
-
-// Wrap request to add token except for public endpoints
-export function authedRequest(url, options = {}) {
-  const publicEndpoints = ["/signin", "/signup", "/items"];
-  const isPublic = publicEndpoints.some((ep) => url.endsWith(ep));
-  if (!isPublic) {
-    const token = getToken();
-    if (token) {
-      options.headers = {
-        ...(options.headers || {}),
-        authorization: `Bearer ${token}`,
-      };
-    }
-  }
-  return request(url, options);
-}
-
-// Update API calls to use authedRequest
 const getItemList = () => {
-  return authedRequest(`${BASE_URL}/items`, {
+  return request(`${BASE_URL}/items`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
 };
 
-const addItem = ({ name, weatherType, url, id }) => {
-  return authedRequest(`${BASE_URL}/items`, {
+const addItem = ({ name, weatherType, url }, token) => {
+  return request(`${BASE_URL}/items`, {
     method: "POST",
     headers: {
+      authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       name,
       weather: weatherType,
       imageUrl: url,
-      id,
     }),
   });
 };
 
-const removeItem = (id) => {
-  return authedRequest(`${BASE_URL}/items/${id}`, {
+const removeItem = (id, token) => {
+  return request(`${BASE_URL}/items/${id}`, {
     method: "DELETE",
     headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const getUserInfo = (token) => {
+  return request(`${BASE_URL}/users/me`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const setUserInfo = ({ name, avatar }, token) => {
+  return request(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      avatar,
+    }),
+  });
+};
+
+const addCardLike = (id, token) => {
+  return request(`${BASE_URL}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+const removeCardLike = (id, token) => {
+  return request(`${BASE_URL}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
@@ -64,6 +86,10 @@ const api = {
   getItemList,
   addItem,
   removeItem,
+  getUserInfo,
+  setUserInfo,
+  addCardLike,
+  removeCardLike,
 };
 
 export default api;

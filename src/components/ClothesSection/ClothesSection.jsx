@@ -8,6 +8,7 @@ function ClothesSection({
   onCardClick,
   weatherData,
   handleAddClick,
+  handleLikeClick,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const userItems = clothingItems.filter(
@@ -27,6 +28,7 @@ function ClothesSection({
             key={card.id || card._id || card.name}
             card={card}
             onCardClick={onCardClick}
+            onLikeClick={handleLikeClick}
           />
         ))}
       </ul>

@@ -51,10 +51,10 @@ const App = () => {
   const handleAddItemSubmit = (item, resetForm) => {
     const newItem = {
       ...item,
-      id: Date.now(), // use id as the primary key for json-server
+      id: Date.now(),
     };
     api
-      .addItem(newItem)
+      .addItem(newItem, localStorage.getItem("jwt"))
       .then((createdItem) => {
         setClothingItems([createdItem, ...clothingItems]);
         closeAllModals();
@@ -119,7 +119,7 @@ const App = () => {
   const handleCardDelete = () => {
     if (!selectedCard || !selectedCard._id) return;
     api
-      .removeItem(selectedCard._id)
+      .removeItem(selectedCard._id, localStorage.getItem("jwt"))
       .then(() => {
         setClothingItems((cards) =>
           cards.filter((item) => item._id !== selectedCard._id),
@@ -218,6 +218,27 @@ const App = () => {
     }
   }, []);
 
+  const handleLikeClick = ({ id, isLiked }) => {
+    const token = localStorage.getItem("jwt");
+    return isLiked
+      ? api
+          .removeCardLike(id, token)
+          .then((newCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? newCard : item)),
+            );
+          })
+          .catch((err) => console.log(err))
+      : api
+          .addCardLike(id, token)
+          .then((newCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? newCard : item)),
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -242,6 +263,7 @@ const App = () => {
                       weatherData={weatherData}
                       clothingItems={clothingItems}
                       onCardClick={handleCardClick}
+                      handleLikeClick={handleLikeClick}
                     />
                   ) : (
                     <p>Loading...</p>
@@ -257,6 +279,7 @@ const App = () => {
                       weatherData={weatherData}
                       onCardClick={handleCardClick}
                       handleAddClick={() => setActiveModal("create")}
+                      handleLikeClick={handleLikeClick}
                     />
                   )
                 }
