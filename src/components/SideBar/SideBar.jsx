@@ -1,6 +1,6 @@
 import "./SideBar.css";
 import avatar from "../../images/avatarheader.svg";
-function SideBar() {
+function SideBar({ onProfileChange }) {
   return (
     <div className="sidebar">
       <div className="sidebar__row">
@@ -11,6 +11,11 @@ function SideBar() {
         />
         <p className="sidebar__username">Daniel King</p>
       </div>
+      <ul className="sidebar__nav">
+        <li className="sidebar__nav-item">
+          <span onClick={onProfileChange}>Change profile data</span>
+        </li>
+      </ul>
     </div>
   );
 }

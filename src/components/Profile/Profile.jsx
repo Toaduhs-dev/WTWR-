@@ -7,11 +7,12 @@ function Profile({
   weatherData,
   handleAddClick,
   handleLikeClick,
+  onProfileChange,
 }) {
   return (
     <main className="profile">
       <section className="profile-sidebar">
-        <SideBar />
+        <SideBar onProfileChange={onProfileChange} />
       </section>
       <section className="profile-clothes">
         <ClothesSection

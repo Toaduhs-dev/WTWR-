@@ -13,6 +13,7 @@ import Profile from "../Profile/Profile";
 import { DeleteConfirmationModal } from "../DeleteConfirmationModal/DelConMod";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
+import EditModal from "../EditModal/EditModal";
 
 import { apiKey, location } from "../../utils/constant";
 import {
@@ -58,7 +59,6 @@ const App = () => {
       .then((createdItem) => {
         setClothingItems([createdItem, ...clothingItems]);
         closeAllModals();
-        resetForm();
       })
       .catch(console.error);
   };
@@ -239,6 +239,21 @@ const App = () => {
           .catch((err) => console.log(err));
   };
 
+  const onEdit = (userData, resetForm) => {
+    api
+      .setUserInfo(userData, localStorage.getItem("jwt"))
+      .then((res) => {
+        setCurrentUser(res.data);
+        closeAllModals();
+        resetForm();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const openEditProfileModal = () => {
+    setActiveModal("edit");
+  };
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -280,6 +295,7 @@ const App = () => {
                       onCardClick={handleCardClick}
                       handleAddClick={() => setActiveModal("create")}
                       handleLikeClick={handleLikeClick}
+                      onProfileChange={openEditProfileModal}
                     />
                   )
                 }
@@ -313,6 +329,11 @@ const App = () => {
             onClose={closeAllModals}
             onCardDelete={handleCardDelete}
             isOpen={activeModal === "delete-confirmation"}
+          />
+          <EditModal
+            isOpen={activeModal === "edit"}
+            onCloseModal={closeAllModals}
+            onEdit={onEdit}
           />
         </CurrentTemperatureUnitContext.Provider>
       </CurrentUserContext.Provider>
