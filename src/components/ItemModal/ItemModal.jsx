@@ -1,4 +1,4 @@
-import "../ModalWithForm/ModalWithForm.css";
+import "../ModalwithForm/ModalwithForm";
 import "./ItemModal.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
