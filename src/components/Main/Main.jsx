@@ -39,4 +39,4 @@ const Main = ({ weatherData, clothingItems, onCardClick, handleLikeClick }) => {
   );
 };
 
-export default Main; // Fixed the typo from "Mai" to "Main"
+export default Main;

@@ -48,7 +48,6 @@
   width: 21px;
   height: 19px;
   background: transparent url("../../images/like-inactive.svg") center no-repeat;
-  /* Later it will be defined in the modifier */
   background-size: 21px 18px;
   border: none;
   padding: 0;

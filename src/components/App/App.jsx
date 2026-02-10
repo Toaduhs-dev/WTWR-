@@ -4,7 +4,6 @@ import "./App.css";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
-//import Headerx from "../Header/HeaderImprovement";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
@@ -19,7 +18,7 @@ import { apiKey, location } from "../../utils/constant";
 import {
   filterDataFromWeatherAPI,
   getForecastWeather,
-} from "../../utils/weatherApi";
+} from "../../utils/weatherAPI";
 import * as auth from "../../utils/auth";
 
 import api from "../../utils/api";
@@ -39,10 +38,6 @@ const App = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-
-  const generateRandomId = () => {
-    return Math.random().toString(36).substring(2, 6);
-  };
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -70,7 +65,6 @@ const App = () => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setIsLoggedIn(true);
-          // Fetch user info after login
           return auth.getUserInfo(res.token);
         }
         throw new Error("No token returned");
@@ -90,7 +84,6 @@ const App = () => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setIsLoggedIn(true);
-          // Fetch user info after registration
           return auth.getUserInfo(res.token);
         }
         throw new Error("No token returned");
@@ -144,7 +137,6 @@ const App = () => {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
-    // Optionally, redirect to home or login
   };
 
   useEffect(() => {
@@ -154,7 +146,6 @@ const App = () => {
       getForecastWeather(location, apiKey)
         .then((data) => {
           const filteredData = filterDataFromWeatherAPI(data);
-          //console.log("Fetched weather data:", filteredData);
           setWeatherData(filteredData);
         })
         .catch((err) => {
@@ -175,7 +166,6 @@ const App = () => {
         setClothingItems(items.reverse());
       })
       .catch(() => {
-        // Fallback: map 'link' to 'url' for compatibility
         const fallback = defaultClothingItems.map((item) => ({
           ...item,
           url: item.url || item.link,
@@ -200,7 +190,6 @@ const App = () => {
     };
   }, [activeModal]);
 
-  // Check token on mount
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {

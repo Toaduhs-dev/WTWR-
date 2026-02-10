@@ -19,8 +19,6 @@ const EditModal = ({ onEdit, onCloseModal, isOpen }) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // Resetting the form fields is recommended, but should only occur after successful submission
     onEdit(values, resetForm);
   }
 

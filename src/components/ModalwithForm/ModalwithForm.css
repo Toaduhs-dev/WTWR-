@@ -8,11 +8,11 @@
   left: 0;
   bottom: 0;
   right: 0;
-  /* Styles for smooth modal opening */
   visibility: hidden;
   opacity: 0;
-  /* Delay visibility: hidden until the end of the opacity animation, but only on the fade-out direction */
-  transition: visibility 0s 0.6s, opacity 0.6s;
+  transition:
+    visibility 0s 0.6s,
+    opacity 0.6s;
   z-index: 50;
   font-size: 16px;
   line-height: 20px;
@@ -30,7 +30,9 @@
   background: #000;
   border-radius: 4px;
   border: none;
-  transition: visibility 0s, background 0.3s;
+  transition:
+    visibility 0s,
+    background 0.3s;
   margin-top: 24px;
 }
 
@@ -152,8 +154,9 @@
 .modal_is-opened {
   visibility: visible;
   opacity: 1;
-  /* When opening, make the visibility change immediate with no delay */
-  transition: visibility 0s, opacity 0.6s;
+  transition:
+    visibility 0s,
+    opacity 0.6s;
 }
 
 .modal_type_edit-avatar .modal__content {

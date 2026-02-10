@@ -18,11 +18,11 @@
 }
 
 .toggle-switch__input {
-  position: absolute; /* Bring it out of the document flow */
-  /* Hide the native checkbox while leaving it still clickable via its label */
+  position: absolute;
+
   width: 0;
   height: 0;
-  overflow: hidden; /* Make extra sure its visuals don't appear */
+  overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
 
@@ -39,56 +39,46 @@
 
   transition-duration: 0.1s;
   transition-timing-function: ease-in-out;
-  transition-property: all; /* This is the default value included for clarity */
+  transition-property: all;
 }
 
 .toggle-switch__value {
-  /* Don't let them accidentally select the F/C letters if they double click */
   user-select: none;
 
-  /* F/C labels invert the color of their background */
-  color: #7e7e7e; /* Default non-hover gray, which we set to white if active or hovered */
+  color: #7e7e7e;
   mix-blend-mode: difference;
-
-  /* Positioning */
   position: absolute;
   top: 0;
   bottom: 0;
   width: 24px;
-
-  /* Font */
   font-family: "CabinetGrotesk-Bold";
   font-weight: 700;
   font-size: 14px;
   line-height: 1.24;
-
-  /* Center the text */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* "F" value label */
 .toggle-switch__value_left {
   left: 0;
 }
-/* "C" value label */
+
 .toggle-switch__value_right {
   right: 0;
 }
 
-/* When hovering, border becomes black */
 .toggle-switch:hover {
   border-color: black;
 }
 .toggle-switch__label:hover {
   border-color: black;
 }
-/* When hovering, the inactive text changes from gray to black (which when using with mix-blend-mode, means we set it to white) */
+
 .toggle-switch__label:hover .toggle-switch__value {
   color: white;
 }
-/* The letter in the black circle is always white (fully inverting) */
+
 .toggle-switch__input:checked ~ .toggle-switch__value_right {
   color: white;
 }
@@ -96,7 +86,6 @@
   color: white;
 }
 
-/* Make the circle wider when hovering the checkbox */
 .toggle-switch__label:hover
   .toggle-switch__input:not(:checked)
   ~ .toggle-switch__circle {

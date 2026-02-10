@@ -2,19 +2,15 @@ import { useState, useContext, useEffect } from "react";
 import "./ToggleSwitch.css";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-/**
- *
- * @author [Shraddha](https://github.com/5hraddha)
- */
 const ToggleSwitch = () => {
   const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
-    CurrentTemperatureUnitContext
+    CurrentTemperatureUnitContext,
   );
 
   const [isChecked, setIsChecked] = useState(currentTemperatureUnit === "C");
   useEffect(
     () => setIsChecked(currentTemperatureUnit === "C"),
-    [currentTemperatureUnit]
+    [currentTemperatureUnit],
   );
 
   return (
