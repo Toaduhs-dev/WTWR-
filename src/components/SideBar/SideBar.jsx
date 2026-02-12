@@ -1,5 +1,6 @@
 import "./SideBar.css";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";\
+import { useContext } from "react";
 import avatar from "../../images/avatarheader.svg";
 function SideBar({ onProfileChange }) {
   const currentUser = useContext(CurrentUserContext);
@@ -25,4 +26,3 @@ function SideBar({ onProfileChange }) {
 }
 
 export default SideBar;
-//
