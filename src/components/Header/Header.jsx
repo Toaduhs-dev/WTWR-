@@ -5,7 +5,7 @@ import "./Header.css";
 import "./Headerx.css";
 import "./Navigation.css";
 import logoPath from "../../images/Logo.png";
-import avatarDefault from "../../images/avatarheader.svg";
+//import avatarDefault from "../../images/avatarheader.svg";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 const Header = ({
