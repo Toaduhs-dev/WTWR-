@@ -163,10 +163,10 @@ const App = () => {
     api
       .getItemList()
       .then((items) => {
-        setClothingItems(items.reverse());
+        setClothingItems(items?.reverse());
       })
       .catch(() => {
-        const fallback = defaultClothingItems.map((item) => ({
+        const fallback = defaultClothingItems?.map((item) => ({
           ...item,
           url: item.url || item.link,
         }));

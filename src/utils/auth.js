@@ -1,4 +1,4 @@
-const BASE_URL = "http://18.222.217.216:3001";
+const BASE_URL = "https://apiworking.duckdns.org";
 
 export const register = ({ name, avatar, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
